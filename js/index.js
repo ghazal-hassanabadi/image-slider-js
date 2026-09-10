@@ -7,9 +7,7 @@ const back = document.querySelector(".back")
 let currentIndex = 0;
 
 
-
-next.addEventListener("click" , 
-    function(){
+function showNext() {
         sliderImages[currentIndex].classList.remove("active")
         currentIndex++
 
@@ -21,11 +19,14 @@ next.addEventListener("click" ,
         
         sliderImages[currentIndex].classList.add("active")
 
-    }
-)
+        resetTimer()
 
-back.addEventListener("click" , 
-    function(){
+}
+
+
+next.addEventListener("click" , showNext)
+
+function showBack(){
         sliderImages[currentIndex].classList.remove("active")
         currentIndex--
 
@@ -37,5 +38,16 @@ back.addEventListener("click" ,
 
           sliderImages[currentIndex].classList.add("active")
 
-    }
-)
+          resetTimer()
+}
+
+back.addEventListener("click" , showBack)
+
+let autoSlide = setInterval(showNext, 2000)
+
+
+function resetTimer () {
+    clearInterval(autoSlide)
+    autoSlide = setInterval(showNext, 2000)
+}
+
