@@ -12,45 +12,38 @@ const dots = document.querySelectorAll(".dots button")
 let currentIndex = 0;
 
 
-function showNext() {
-        sliderImages[currentIndex].classList.remove("active")
-        currentIndex++
+function changeSlide(direction) {
+    sliderImages[currentIndex].classList.remove("active")
 
-        if(currentIndex === sliderImages.length) {
+    currentIndex = currentIndex + direction
 
-            currentIndex=0
+    if (currentIndex >= sliderImages.length) {
+        currentIndex = 0
+    }
 
-        }
-        
-        sliderImages[currentIndex].classList.add("active")
+    if (currentIndex < 0) {
+        currentIndex = sliderImages.length - 1
+    }
 
-        resetTimer()
-        updateDots()
+    sliderImages[currentIndex].classList.add("active")
 
+    resetTimer()
+    updateDots()
 }
 
 
-next.addEventListener("click" , showNext)
+next.addEventListener("click", function() {
+    changeSlide(1)
+})
 
-function showBack(){
-        sliderImages[currentIndex].classList.remove("active")
-        currentIndex--
+back.addEventListener("click", function() {
+    changeSlide(-1)
+})
 
-                if(currentIndex <0) {
 
-            currentIndex=sliderImages.length - 1
-
-        }
-
-          sliderImages[currentIndex].classList.add("active")
-
-          resetTimer()
-          updateDots()
-}
-
-back.addEventListener("click" , showBack)
-
-let autoSlide = setInterval(showNext, 2000)
+let autoSlide = setInterval(function() {
+    changeSlide(1)
+}, 2000)
 
 
 function resetTimer () {
