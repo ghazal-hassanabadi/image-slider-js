@@ -46,46 +46,34 @@ let autoSlide = setInterval(function() {
 }, 2000)
 
 
-function resetTimer () {
+function resetTimer() {
     clearInterval(autoSlide)
-    autoSlide = setInterval(showNext, 2000)
+    autoSlide = setInterval(function() {
+        changeSlide(1)
+    }, 2000)
 }
-
 
 
 for (let i = 0; i < dots.length; i++) {
-    dots[i].addEventListener ("click" ,
-        function() {
+    dots[i].addEventListener("click", function() {
+        sliderImages[currentIndex].classList.remove("active")
 
-            sliderImages[currentIndex].classList.remove("active")
+        currentIndex = Number(dots[i].dataset.index)
 
+        sliderImages[currentIndex].classList.add("active")
 
-            currentIndex = Number(dots[i].dataset.index)
-
-            sliderImages[currentIndex].classList.add("active")
-
-            resetTimer()
-            updateDots()
-            
-
-
-        }) 
-
-
-}
-
-function updateDots () {
-  for (let i = 0; i < dots.length; i++){  
-
-    if(i===currentIndex){
-        dots[i].classList.add("active")
-    }
-
-    else  {
-       
-        dots[i].classList.remove("active")
-    }
+        resetTimer()
+        updateDots()
+    })
 }
 
 
+function updateDots() {
+    for (let i = 0; i < dots.length; i++) {
+        if (i === currentIndex) {
+            dots[i].classList.add("active")
+        } else {
+            dots[i].classList.remove("active")
+        }
+    }
 }
